@@ -1,0 +1,12 @@
+{
+    "name": "shuoba",
+    "version": "0.0.1",
+    "description": "A comment system for blog",
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/yuyouwen/shuoba.git"
+    },
+    "dependencies": {
+        "mongodb": "^2.2.25"
+    }
+}
