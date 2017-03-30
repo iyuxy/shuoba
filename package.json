@@ -8,6 +8,11 @@
     },
     "dependencies": {
         "mongodb": "^2.2.25",
-        "underscore": "^1.8.3"
+        "underscore": "^1.8.3",
+        "nodemailer": "3.1.8",
+        "nodemailer-direct-transport": "3.3.2", 
+        "validator": "3.39.0",
+        "bluebird": "3.5.0",
+        "html-to-text": "3.2.0"
     }
 }
