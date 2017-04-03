@@ -8,7 +8,9 @@ var customConfig = {
         website: true
     },
     sendEmail: true,
-    mail: {}
+    mail: {
+        from: 'shuoba@iyuxy.com'
+    }
 };
 
 module.exports = customConfig;
