@@ -23,6 +23,10 @@
         +       '<div class="input"><input type="text" class="url" placeholder="网址"></div>'
         +   '</div>'
         +   '<div class="submit-button">说吧~</div>'
+        + '</div>'
+        + '<div class="comment-list">'
+        +   '<div class="comment-list-head">Ta说</div>'
+        +   '<ul class="comment-list-ul"><li><div class="head-pic"></div><div class="comment-detail"><div class="nickname">张胜男</div><div class="time">2017年10月20日</div><div class="content">你好啊，我的朋友</div><div class="btn">回复</div></div></li><li><div class="head-pic"></div><div class="comment-detail"><div class="nickname">张胜男</div><div class="time">2017年10月20日</div><div class="content">你好啊，我的朋友</div><div class="btn">回复</div></div></li></ul>'
         + '</div>';
 
     var createCommentBox = function (className) {

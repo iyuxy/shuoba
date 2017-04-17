@@ -55,6 +55,70 @@
     background: #3369e8;
     transition: background 0.3s ease;
 }
+.shuoba-thread .comment-list {
+    margin-top: 30px;
+}
+.shuoba-thread .comment-list .comment-list-head {
+    line-height: 100%;
+    padding-left: 10px;
+    font-weight: 700;
+    border-left: 2px solid #3369e8;
+    color: #585858;
+}
+.shuoba-thread .comment-list-ul {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.shuoba-thread .comment-list-ul li {
+    width: 100%;
+    position: relative;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #dee4e9;
+}
+.shuoba-thread .comment-list-ul  .head-pic {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 60px;
+    height: 60px;
+    background: #00a3cf;
+    border-radius: 100%;
+}
+.shuoba-thread .comment-list-ul  .head-pic:hover {
+    background: #3369e8;
+    transition: background 0.3s ease;
+}
+
+.shuoba-thread .comment-list-ul  .comment-detail{
+    margin-left: 80px;
+}
+.shuoba-thread .comment-list-ul  .comment-detail .nickname {
+    font-size: 14px;
+    color: #444;;
+}
+.shuoba-thread .comment-list-ul  .comment-detail .time {
+    font-size: 13px;
+    color: #aaa;
+}
+.shuoba-thread .comment-list-ul  .comment-detail .content {
+    padding: 10px 0;
+    font-size: 14px;
+    line-height: 20px;
+}
+.shuoba-thread .comment-list-ul  .comment-detail .btn {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: #333;
+}
+.shuoba-thread .comment-list-ul  .comment-detail .btn:hover {
+    font-size: 14px;
+    cursor: pointer;
+    color: #999;
+}
 
 @media (max-width: 600px) {
     .shuoba-thread .input-box {
