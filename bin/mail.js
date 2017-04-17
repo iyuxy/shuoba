@@ -132,14 +132,48 @@ shuoBaMailer.prototype.sendTest = function (options) {
     }, function (error) {
         console.log(error);
     });
-}
+};
+
+shuoBaMailer.prototype.commentNotice = function (options) {
+    var self = this;
+    var options = u.extend({template: 'notice'}, options);
+    return generateContent(options).then(function (emailContent) {
+        var message = {
+            to: options.to,
+            subject: '说吧新评论提醒',
+            html: emailContent.html,
+            text: emailContent.text,
+            watchHtml: emailContent.html
+        };
+        return self.send(message);
+    }, function (error) {
+        console.log(error);
+    });
+};
+
+shuoBaMailer.prototype.mailToOwner = function (options) {
+    var self = this;
+    var options = u.extend({template: 'commentMail', siteName: config.title}, options);
+    return generateContent(options).then(function (emailContent) {
+        var message = {
+            to: config.personEmail,
+            subject:  config.title + '说吧新评论提醒',
+            html: emailContent.html,
+            text: emailContent.text,
+            watchHtml: emailContent.html
+        };
+        return self.send(message);
+    }, function (error) {
+        console.log(error);
+    });
+};
 
 var generateContent = function (options) {
     var defaultData = {
         siteUrl: config.url || 'test'
     };
 
-    var emailData = u.defaults(defaultData, options.data);
+    var emailData = u.defaults(defaultData, options);
     u.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
 
     // read the proper email body template

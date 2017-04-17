@@ -7,9 +7,18 @@ var customConfig = {
         email: true,
         website: true
     },
+    personEmail: '**',
     sendEmail: true,
     mail: {
-        from: 'shuoba@iyuxy.com'
+        from: 'shuoba@iyuxy.com',
+        options: {
+            host: 'smtp.exmail.qq.com',
+            port: 25,
+            auth: {
+                user: '**',
+                pass:  '**'
+            }
+        }
     }
 };
 
