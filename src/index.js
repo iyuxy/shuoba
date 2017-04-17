@@ -8,6 +8,10 @@ var validator = require('validator');
 
 var app = require('./app');
 
+var express = require('express');
+
+var path = require('path');
+
 var counter = 0x861005;
 
 // mailer.send({
@@ -31,10 +35,12 @@ var counter = 0x861005;
 // 
 
 // 发送测试邮件
-// mailer.sendTest({
-//     to: 'yuyouwen@baidu.com'
-// });
+mailer.sendTest({
+    to: 'yuyouwen@baidu.com'
+});
 // 
+// 
+app.use(express.static(path.resolve(__dirname, '../client')));
 
 app.get('/comment/:id', function(req, res) {
     comment.getComment({pageId: parseInt(req.params.id, 10)}, function (data) {
@@ -57,18 +63,18 @@ app.post('/comment/:id', function (req, res) {
     };
     commentContent._id = commentContent.pageId + '' + new Date().getTime() + counter ++;
     if (commentContent.parentId !== '0') {
-      if (validator.isEmail(commentContent.from)) {
         comment.getComment({pageId: commentContent.pageId, _id: commentContent.parentId}, function (data) {
           data = data[0];
-          mailer.commentNotice({
-            to: data.from,
-            nickName: data.nickname,
-            fromNickName: commentContent.nickname,
-            title: data.title,
-            pageUrl: commentContent.url
-          });
+          if (validator.isEmail(data.from)) {
+            mailer.commentNotice({
+              to: data.from,
+              nickName: data.nickname,
+              fromNickName: commentContent.nickname,
+              title: data.title,
+              pageUrl: commentContent.url
+            });
+          }
         });
-      }
     }
 
     if (validator.isEmail(commentContent.from)) {
@@ -81,8 +87,11 @@ app.post('/comment/:id', function (req, res) {
 
     var resContent = {
         success: true,
-        data: ''
+        data: {
+          _id: commentContent._id
+        }
     };
+    commentContent.time = new Date().getTime();
     comment.insertComment(commentContent, function () {
         res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
         res.end(JSON.stringify(resContent));

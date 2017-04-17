@@ -1,8 +1,12 @@
+.shuoba-thread {
+    -webkit-font-smoothing: antialiased;
+}
 .shuoba-thread .comment-box {
     width: 100%;
 }
 .shuoba-thread .text-block {
     width: 100%;
+    max-width: 100%;
     padding: 10px;
     background: #f4f6f7;
     outline: none;
@@ -25,13 +29,17 @@
 }
 .shuoba-thread .input-box input{
     width: 100%;
-    height: 26px;
+    height: 28px;
     outline: none;
     border: 1px solid #b9b9b9;
     background: #f4f6f7;
     border-radius: 3px;
     padding: 0 10px;
     box-sizing: border-box;
+}
+.shuoba-thread  .params.highlight {
+    border-color: #FF6633;
+    transition: border-color 0.4s ease;
 }
 
 .shuoba-thread input:focus,
@@ -50,6 +58,7 @@
     background: #00a3cf;
     color: #fff;
     font-size: 14px;
+    -webkit-user-select: none;
 }
 .shuoba-thread .submit-button:hover {
     background: #3369e8;
@@ -70,54 +79,100 @@
     padding: 0;
     list-style: none;
 }
-
+.shuoba-thread .comment-list-ul .no-comment {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    color: #999;
+    font-size: 14px;
+    padding: 10px 0;
+    text-align: center;
+}
 .shuoba-thread .comment-list-ul li {
     width: 100%;
     position: relative;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #dee4e9;
+    padding-top: 10px;
+    border-top: 1px solid #dee4e9;
 }
 .shuoba-thread .comment-list-ul  .head-pic {
     position: absolute;
-    top: 0px;
+    top: 10px;
     left: 0px;
     width: 60px;
     height: 60px;
-    background: #00a3cf;
+    background-color: #00a3cf;
     border-radius: 100%;
+    background-image: url('./gravatar.jpg');
+    background-size: 60px;
+    background-position: center;
+    background-repeat: no-repeat;
+    // background-size: 32px;
+    transition: all .2s ease-in-out;
 }
 .shuoba-thread .comment-list-ul  .head-pic:hover {
-    background: #3369e8;
-    transition: background 0.3s ease;
+    transform: rotate(1turn);
 }
-
+.shuoba-thread .comment-list-ul .comment-item .comment-box{
+    margin-bottom: 20px;
+}
 .shuoba-thread .comment-list-ul  .comment-detail{
     margin-left: 80px;
 }
 .shuoba-thread .comment-list-ul  .comment-detail .nickname {
     font-size: 14px;
-    color: #444;;
-}
-.shuoba-thread .comment-list-ul  .comment-detail .time {
-    font-size: 13px;
-    color: #aaa;
+    color: #888;
 }
 .shuoba-thread .comment-list-ul  .comment-detail .content {
     padding: 10px 0;
     font-size: 14px;
     line-height: 20px;
 }
+.shuoba-thread .comment-list-ul  .comment-detail .reply {
+    overflow: hidden;
+}
+.shuoba-thread .comment-list-ul  .comment-detail .reply .time {
+    font-size: 13px;
+    color: #aaa;
+    float: left;
+}
 .shuoba-thread .comment-list-ul  .comment-detail .btn {
     font-size: 14px;
     line-height: 20px;
     margin-bottom: 10px;
     cursor: pointer;
-    color: #333;
+    color: #aaa;
+    float: left;
+    margin-left: 20px;
 }
 .shuoba-thread .comment-list-ul  .comment-detail .btn:hover {
     font-size: 14px;
     cursor: pointer;
     color: #999;
+}
+.shuoba-thread .comment-list-ul .children-ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0 0 0 30px;
+}
+.shuoba-thread .comment-list-ul .children-ul li {
+    position: relative;
+    padding-top: 10px;
+    margin-bottom: 0;
+    border-top:  1px solid #dee4e9;
+}
+.shuoba-thread .comment-list-ul  .children-ul  .head-pic {
+    top: 10px;
+}
+.shuoba-thread .comment-list-ul li:first-child {
+    border-top: none;
+}
+.shuoba-thread .comment-list-ul .children-ul li:first-child {
+    border-top: 1px solid #dee4e9;
+}
+.shuoba-thread .comment-list-ul .children-ul li:last-child {
+    border-bottom: none;
+}
+.shuoba-thread .comment-list-ul li:last-child {
+    border-bottom: 1px solid #dee4e9;
 }
 
 @media (max-width: 600px) {

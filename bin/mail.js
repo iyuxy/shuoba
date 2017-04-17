@@ -130,7 +130,7 @@ shuoBaMailer.prototype.sendTest = function (options) {
         };
         return self.send(message);
     }, function (error) {
-        console.log(error);
+        // console.log(error);
     });
 };
 

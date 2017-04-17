@@ -15,18 +15,19 @@
         return target[0];
     };
 
-    var commentElement = '<div class="comment-box">'
-        + '<textarea class="text-block" rows="8" placeholder="说点什么吧~" data-required></textarea>'
+    var commentElement = '<div class="comment-box" parent-id="0" >'
+        +   '<textarea class="text-block params" rows="8" name="comment" placeholder="说点什么吧~" data-required></textarea>'
         +   '<div class="input-box">'
-        +       '<div class="input"><input type="text" class="nickname" placeholder="昵称*" data-required></div>'
-        +       '<div class="input"><input type="text" class="mail" placeholder="电子邮件地址*" data-required></div>'
-        +       '<div class="input"><input type="text" class="url" placeholder="网址"></div>'
+        +       '<div class="input"><input type="text" class="nickname params" name="nickname" placeholder="昵称*" data-required></div>'
+        +       '<div class="input"><input type="text" class="mail params" name="from" placeholder="电子邮件地址*" data-required></div>'
+        +       '<div class="input"><input type="text" class="url params" name="url" placeholder="网址"></div>'
         +   '</div>'
         +   '<div class="submit-button">说吧~</div>'
         + '</div>'
         + '<div class="comment-list">'
         +   '<div class="comment-list-head">Ta说</div>'
-        +   '<ul class="comment-list-ul"><li><div class="head-pic"></div><div class="comment-detail"><div class="nickname">张胜男</div><div class="time">2017年10月20日</div><div class="content">你好啊，我的朋友</div><div class="btn">回复</div></div></li><li><div class="head-pic"></div><div class="comment-detail"><div class="nickname">张胜男</div><div class="time">2017年10月20日</div><div class="content">你好啊，我的朋友</div><div class="btn">回复</div></div></li></ul>'
+        +   '<ul class="comment-list-ul" data-uid="0">'
+        +   '</ul>'
         + '</div>';
 
     var createCommentBox = function (className) {
@@ -37,25 +38,126 @@
     };
 
     var creatCommentlist = function () {
+        $.ajax({url: '/comment/' + shuoba.pageInfo.pageId,
+            dataType: 'json',
+            success: function (data) {
+                if (data.length === 0) {
+                    var str ='<div class="no-comment">还没有人说话哦，你来吧~</div>';
+                    $(shuoba.target).find('.comment-list-ul').html(str);
+                }
+                else {
+                    $(shuoba.target).find('.comment-list-ul').html('');
+                    $.each(data, function (index, item) {
+                        addCommentToEle(item);
+                    });
+                }
+            }
+        });
 
     }
+
+    var commentItem = function (item) {
+        var tpl = '<li class="comment-item" data-uid="' + item._id + '">'
+            + '<div class="head-pic">'
+            +   '</div><div class="comment-detail">'
+            +     '<div class="nickname">' + item.nickname + '</div>'
+            +     '<div class="content">' + item.comment + '</div>'
+            +     '<div class="reply">'
+            +       '<div class="time">' + getLocalTime(item.time) + '</div>'
+            +       '<div class="btn">回复</div>'
+            +     '</div>'
+            +   '</div>'
+            +   '<ul class="children-ul"></ul>'
+            + '</li>';
+        return tpl;
+    };
 
     var getComment = function (argument) {
         
     };
 
     var sendComment = function (argument) {
-
+        $(shuoba.target).delegate('.submit-button', 'click', function (evt) {
+            var shuobaParams = $(evt.target).parent().find('.params');
+            var obj = {};
+            var isComment = true;
+            var parentId = $(evt.target).parents('.comment-box').attr('parent-id');
+            $.each(shuobaParams, function (index, item) {
+                var ele = $(item);
+                var isRequire = ele.attr('data-required');
+                var name = ele.attr('name');
+                var value = ele.val();
+                if (isRequire !== undefined && value.replace(/\ /g, '') === '') {
+                    ele.addClass('highlight');
+                    isComment = false;
+                }
+                else {
+                    ele.removeClass('highlight');
+                }
+                obj[name] = value;
+            });
+            if (isComment) {
+                obj.parentId = parentId;
+                $.ajax({url: '/comment/' + shuoba.pageInfo.pageId,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: $.extend(obj, shuoba.pageInfo),
+                    success: function (data) {
+                        if (data.success) {
+                            obj.time = '刚刚';
+                            obj._id = data.data._id;
+                            addCommentToEle(obj);
+                            $(shuoba.target).find('.no-comment').remove();
+                        }
+                    }
+                });
+                var commentBox = $(shuoba.target).find('.comment-box');
+                if (commentBox.attr('parent-id') !== '0') {
+                    $('.comment-list-ul .btn.active').trigger('click');
+                }
+            }
+        });
+        $(shuoba.target).delegate('.comment-list-ul .btn', 'click', function (evt) {
+            var ele = $(evt.target);
+            var commentBox = $(shuoba.target).find('.comment-box');
+            if (ele.html() === '回复') {
+                $(shuoba.target).find('.comment-list-ul .btn').removeClass('active');
+                ele.addClass('active');
+                ele.html('取消回复');
+                var parentId = $(evt.target).parents('.comment-item').attr('data-uid');
+                commentBox.attr('parent-id', parentId);
+                commentBox.insertAfter($(evt.target).closest('.comment-item').children('.comment-detail'));
+            }
+            else {
+                ele.removeClass('active');
+                ele.html('回复');
+                commentBox.attr('parent-id', '0');
+                $(shuoba.target).prepend(commentBox);
+            }
+            
+        });
     };
 
-
-    var checkInput = function () {
-
+    var addCommentToEle = function (obj) {
+        var tpl = commentItem(obj);
+        if (obj.parentId === '0') {
+            $(shuoba.target).find('.comment-list-ul').append(tpl);
+        }
+        else {
+            $(shuoba.target).find('.comment-list-ul li[data-uid="' + obj.parentId + '"]').children('.children-ul').append(tpl);
+        }
     };
 
     if (!evCheck() || !getTarget(className)) {
         return;
     }
+
+    var getLocalTime = function (nS) {
+        if (isNaN(parseInt(nS))) {
+            return nS;
+        }
+        return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
+    };
 
     var loadCss = function (path){
         var cssTag = document.getElementById('loadCss');
@@ -88,7 +190,8 @@
     shuoba.pageInfo = pageInfo;
 
     createCommentBox(className);
-
+    creatCommentlist();
+    sendComment();
 
 
 }(window, document, 'shuoba-thread');

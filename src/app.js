@@ -3,10 +3,11 @@ var fs = require('fs');
 var http = require('http');
 var https = require('https');
 var bodyParser = require('body-parser');
+var path = require('path')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 var options = {
-    pfx: fs.readFileSync('../bin/keys/server.pfx'),
+    pfx: fs.readFileSync(path.resolve(__dirname, '..') + '/bin/keys/server.pfx'),
     passphrase: 'shuoba'
 };
 
