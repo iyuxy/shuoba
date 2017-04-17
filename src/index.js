@@ -35,9 +35,9 @@ var counter = 0x861005;
 // 
 
 // 发送测试邮件
-mailer.sendTest({
-    to: 'yuyouwen@baidu.com'
-});
+// mailer.sendTest({
+//     to: 'yuyouwen@baidu.com'
+// });
 // 
 // 
 app.use(express.static(path.resolve(__dirname, '../client')));
