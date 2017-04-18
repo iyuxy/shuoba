@@ -7,3 +7,8 @@ sudo ./mongod
 
 cd /usr/local/mongodb/bin 
 ./mongo
+
+
+# 启动服务
+
+node src/index.js
