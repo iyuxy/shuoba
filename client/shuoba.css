@@ -30,6 +30,7 @@
 .shuoba-thread .input-box input{
     width: 100%;
     height: 28px;
+    font-size: 14px;
     outline: none;
     border: 1px solid #d9d9d9;
     background: #f4f6f7;
