@@ -89,6 +89,7 @@
     text-align: center;
 }
 .shuoba-thread .comment-list-ul li {
+    font-weight: normal;
     width: 100%;
     position: relative;
     padding-top: 10px;
