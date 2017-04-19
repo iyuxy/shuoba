@@ -38,7 +38,7 @@
     };
 
     var creatCommentlist = function () {
-        $.ajax({url: '/comment/' + shuoba.pageInfo.pageId,
+        $.ajax({url: shuoba.submitUrl + '/comment/' + shuoba.pageInfo.pageId,
             dataType: 'json',
             success: function (data) {
                 if (data.length === 0) {
@@ -98,16 +98,23 @@
             });
             if (isComment) {
                 obj.parentId = parentId;
-                $.ajax({url: '/comment/' + shuoba.pageInfo.pageId,
+                $.ajax({url: shuoba.submitUrl + '/comment/' + shuoba.pageInfo.pageId,
                     type: 'POST',
                     dataType: 'json',
+                    beforeSend: function () {
+                        $(evt.target).html('服务器正在听~');
+                    },
                     data: $.extend(obj, shuoba.pageInfo),
                     success: function (data) {
                         if (data.success) {
                             obj.time = '刚刚';
                             obj._id = data.data._id;
                             addCommentToEle(obj);
+                            $.each(shuobaParams, function (index, item) {
+                                $(item).val('');
+                            });
                             $(shuoba.target).find('.no-comment').remove();
+                            $(evt.target).html('说吧~');
                         }
                     }
                 });
@@ -156,7 +163,8 @@
         if (isNaN(parseInt(nS))) {
             return nS;
         }
-        return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
+        var time = new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
+        return time.replace('/', '年').replace('/', '月').replace('/', '日').replace(' ', '日 ');
     };
 
     var loadCss = function (path){
@@ -188,6 +196,8 @@
     var shuoba = {};
     shuoba.target = target;
     shuoba.pageInfo = pageInfo;
+    // shuoba.submitUrl = '';
+    shuoba.submitUrl = 'https://shuoba.iyuxy.com';
 
     createCommentBox(className);
     creatCommentlist();
