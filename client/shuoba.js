@@ -215,7 +215,7 @@
     }
 
     // 加载css文件
-    loadCss('./shuoba.css');
+    // loadCss('./shuoba.css');
 
     var shuoba = {};
     shuoba.target = target;
