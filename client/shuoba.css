@@ -95,6 +95,9 @@
     padding-top: 10px;
     border-top: 1px dotted #dee4e9;
 }
+.shuoba-thread .comment-list-ul li:hover .head-pic {
+    transform: rotate(1turn);
+}
 .shuoba-thread .comment-list-ul  .head-pic {
     position: absolute;
     top: 10px;

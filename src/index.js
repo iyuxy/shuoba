@@ -54,7 +54,7 @@ app.all('*', function(req, res, next) {
 app.get('/comment/:id', function(req, res) {
     comment.getComment({pageId: parseInt(req.params.id, 10)}, function (data) {
         res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
-        res.end(JSON.stringify(data));
+        res.end(JSON.stringify(data.reverse()));
     }, function (err) {
         res.status(503).end();
     });

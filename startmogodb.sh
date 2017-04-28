@@ -5,10 +5,10 @@ sudo ./mongod
 
 # 进入mogodb终端
 
-cd /usr/local/mongodb/bin 
-./mongo
+# cd /usr/local/mongodb/bin 
+# ./mongo
 
 
 # 启动服务
 
-node src/index.js
+# node src/index.js

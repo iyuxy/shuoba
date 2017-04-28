@@ -91,12 +91,19 @@
                     ele.addClass('highlight');
                     isComment = false;
                 }
+
                 else {
                     ele.removeClass('highlight');
                 }
                 obj[name] = value;
             });
             if (isComment) {
+                var regex = new RegExp(/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/);
+                if (!regex.test(obj.from)) {
+                    $(evt.target).parent().find('.mail').addClass('highlight');
+                    $(evt.target).html('请输入邮箱地址~');
+                    return false;
+                }
                 obj.parentId = parentId;
                 $.ajax({url: shuoba.submitUrl + '/comment/' + shuoba.pageInfo.pageId,
                     type: 'POST',
@@ -148,10 +155,10 @@
     var addCommentToEle = function (obj) {
         var tpl = commentItem(obj);
         if (obj.parentId === '0') {
-            $(shuoba.target).find('.comment-list-ul').append(tpl);
+            $(shuoba.target).find('.comment-list-ul').prepend(tpl);
         }
         else {
-            $(shuoba.target).find('.comment-list-ul li[data-uid="' + obj.parentId + '"]').children('.children-ul').append(tpl);
+            $(shuoba.target).find('.comment-list-ul li[data-uid="' + obj.parentId + '"]').children('.children-ul').prepend(tpl);
         }
     };
 
@@ -163,9 +170,26 @@
         if (isNaN(parseInt(nS))) {
             return nS;
         }
-        var time = new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
-        return time.replace('/', '年').replace('/', '月').replace('/', '日').replace(' ', '日 ');
+        var time = new Date(parseInt(nS));
+        var year = time.getFullYear();
+        var month = time.getMonth() + 1;
+        var day = time.getDate();
+        var hour = time.getHours();
+        var min = time.getMinutes();
+        var sec = time.getSeconds();
+        var time = year + '年' + month + '月' + day + '日 '
+            + addPrefix(hour) + ':' + addPrefix(min) + ':' + addPrefix(sec);
+        return time;
+        // var time = new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
+        // return time.replace('/', '年').replace('/', '月').replace('/', '日').replace(' ', '日 ');
     };
+
+    var addPrefix = function (value) {
+        if (value < 10) {
+            return '0' + value;
+        }
+        return value;
+    }
 
     var loadCss = function (path){
         var cssTag = document.getElementById('loadCss');
