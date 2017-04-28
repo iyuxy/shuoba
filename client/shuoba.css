@@ -106,7 +106,7 @@
     height: 40px;
     background-color: #00a3cf;
     border-radius: 100%;
-    background-image: url('./gravatar.jpg');
+    background-image: url('./gravatar-default.jpg');
     background-size: 40px;
     background-position: center;
     background-repeat: no-repeat;
