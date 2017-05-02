@@ -60,7 +60,7 @@
         var tpl = '<li class="comment-item" data-uid="' + item._id + '">'
             + '<div class="head-pic">'
             +   '</div><div class="comment-detail">'
-            +     '<div class="nickname">' + item.nickname + '</div>'
+            +     '<div class="nickname"><a href="' + item.url + '">' + item.nickname + '</a></div>'
             +     '<div class="content">' + item.comment + '</div>'
             +     '<div class="reply">'
             +       '<div class="time">' + getLocalTime(item.time) + '</div>'
@@ -98,10 +98,16 @@
                 obj[name] = value;
             });
             if (isComment) {
-                var regex = new RegExp(/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/);
-                if (!regex.test(obj.from)) {
+                var mailReg = new RegExp(/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/);
+                if (!mailReg.test(obj.from)) {
                     $(evt.target).parent().find('.mail').addClass('highlight');
                     $(evt.target).html('请输入邮箱地址~');
+                    return false;
+                }
+                var urlReg = new RegExp(/(http|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/);
+                if (!urlReg.test(obj.url)) {
+                    $(evt.target).parent().find('.url').addClass('highlight');
+                    $(evt.target).html('请输入正确完整的网站地址~');
                     return false;
                 }
                 obj.parentId = parentId;

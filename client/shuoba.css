@@ -126,6 +126,10 @@
     color: #777;
     font-size: 14px;
 }
+.shuoba-thread .comment-list-ul  .comment-detail .nickname  a{
+    color: inherit;
+    text-decoration: none;
+}
 .shuoba-thread .comment-list-ul  .comment-detail .content {
     padding: 10px 0;
     font-size: 14px;
