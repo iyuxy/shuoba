@@ -20,7 +20,7 @@
         +   '<div class="input-box">'
         +       '<div class="input"><input type="text" class="nickname params" name="nickname" placeholder="昵称*" data-required></div>'
         +       '<div class="input"><input type="text" class="mail params" name="from" placeholder="电子邮件地址*" data-required></div>'
-        +       '<div class="input"><input type="text" class="url params" name="url" placeholder="网址"></div>'
+        +       '<div class="input"><input type="text" class="website params" name="website" placeholder="网址"></div>'
         +   '</div>'
         +   '<div class="submit-button">说吧~</div>'
         + '</div>'
@@ -60,7 +60,7 @@
         var tpl = '<li class="comment-item" data-uid="' + item._id + '">'
             + '<div class="head-pic">'
             +   '</div><div class="comment-detail">'
-            +     '<div class="nickname"><a href="' + item.url + '">' + item.nickname + '</a></div>'
+            +     '<div class="nickname"><a href="' + item.website + '">' + item.nickname + '</a></div>'
             +     '<div class="content">' + item.comment + '</div>'
             +     '<div class="reply">'
             +       '<div class="time">' + getLocalTime(item.time) + '</div>'
@@ -105,7 +105,7 @@
                     return false;
                 }
                 var urlReg = new RegExp(/(http|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/);
-                if (!urlReg.test(obj.url)) {
+                if (!urlReg.test(obj.website)) {
                     $(evt.target).parent().find('.url').addClass('highlight');
                     $(evt.target).html('请输入正确完整的网站地址~');
                     return false;

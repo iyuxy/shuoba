@@ -68,6 +68,7 @@ app.post('/comment/:id', function (req, res) {
       from: req.body.from,
       nickname: req.body.nickname,
       comment: req.body.comment,
+      website: req.body.website,
       parentId: req.body.parentId || '0'
     };
     commentContent._id = commentContent.pageId + '' + new Date().getTime() + counter ++;
