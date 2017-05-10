@@ -216,6 +216,11 @@
         url: $(target).attr('data-url')
     };
 
+    var urlReg = new RegExp(/(http|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/);
+    if (!urlReg.test(pageInfo.url)) {
+        pageInfo.url = window.location.origin + pageInfo.url;
+    }
+
     if (!pageInfo.pageId) {
         return;
     }
