@@ -54,6 +54,10 @@ app.all('*', function(req, res, next) {
 });
 
 app.get('/comment/:id', function(req, res) {
+    if (req.headers.referer !== 'https://shuoba.iyuxy.com/demos.html' && req.headers.referer.indexOf('https://www.iyuxy.com') === -1){
+      res.status(403).end();
+      return;
+    }
     comment.getComment({pageId: parseInt(req.params.id, 10)}, function (data) {
         res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
         res.end(JSON.stringify(u.sortBy(data, 'id')));
