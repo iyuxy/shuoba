@@ -45,11 +45,7 @@ var counter = 0x861005;
 app.use(express.static(path.resolve(__dirname, '../client')));
 
 app.all('*', function(req, res, next) {
-    var originList = [
-      'https://www.iyuxy.com',
-      'http://www.iyuxy.com'
-    ];
-    res.header("Access-Control-Allow-Origin", originList);
+    res.header("Access-Control-Allow-Origin", 'https://www.iyuxy.com');
     res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
     res.header("X-Powered-By",' 3.2.1')
