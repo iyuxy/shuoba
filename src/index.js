@@ -63,6 +63,7 @@ app.get('/comment/:id', function(req, res) {
 });
 
 app.post('/comment/:id', function (req, res) {
+  console.log(req);
     var commentContent = {
       title: req.body.title,
       url: req.body.url,
