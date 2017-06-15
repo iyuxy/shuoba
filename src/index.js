@@ -8,6 +8,8 @@ var validator = require('validator');
 
 var app = require('./app');
 
+var u = require('underscore');
+
 var express = require('express');
 
 var path = require('path');
@@ -43,7 +45,11 @@ var counter = 0x861005;
 app.use(express.static(path.resolve(__dirname, '../client')));
 
 app.all('*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    var originList = [
+      'https://www.iyuxy.com',
+      'http://www.iyuxy.com'
+    ];
+    res.header("Access-Control-Allow-Origin", originList);
     res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
     res.header("X-Powered-By",' 3.2.1')
@@ -54,7 +60,7 @@ app.all('*', function(req, res, next) {
 app.get('/comment/:id', function(req, res) {
     comment.getComment({pageId: parseInt(req.params.id, 10)}, function (data) {
         res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
-        res.end(JSON.stringify(data));
+        res.end(JSON.stringify(u.sortBy(data, 'id'));
     }, function (err) {
         res.status(503).end();
     });
