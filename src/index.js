@@ -60,7 +60,7 @@ app.all('*', function(req, res, next) {
 app.get('/comment/:id', function(req, res) {
     comment.getComment({pageId: parseInt(req.params.id, 10)}, function (data) {
         res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
-        res.end(JSON.stringify(u.sortBy(data, 'id'));
+        res.end(JSON.stringify(u.sortBy(data, 'id')));
     }, function (err) {
         res.status(503).end();
     });
