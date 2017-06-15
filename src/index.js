@@ -63,7 +63,10 @@ app.get('/comment/:id', function(req, res) {
 });
 
 app.post('/comment/:id', function (req, res) {
-  console.log(req.headers.referer);
+    if (req.headers.referer !== 'https://shuoba.iyuxy.com/demos.html' && req.headers.referer.indexOf('https://www.iyuxy.com') === -1） {
+      res.status(403).end();
+      return;
+    }
     var commentContent = {
       title: req.body.title,
       url: req.body.url,
