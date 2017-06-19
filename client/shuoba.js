@@ -38,7 +38,11 @@
     };
 
     var creatCommentlist = function () {
-        $.ajax({url: shuoba.submitUrl + '/comment/' + shuoba.pageInfo.pageId,
+        $.ajax({
+            url: shuoba.submitUrl + '/comment/' + shuoba.pageInfo.pageId,
+            data: {
+                _: new Date().getTime()
+            },
             dataType: 'json',
             success: function (data) {
                 if (data.length === 0) {
@@ -60,7 +64,7 @@
         var tpl = '<li class="comment-item" data-uid="' + item._id + '">'
             + '<div class="head-pic">'
             +   '</div><div class="comment-detail">'
-            +     '<div class="nickname"><a href="' + item.website + '">' + item.nickname + '</a></div>'
+            +     '<div class="nickname"><a href="' + item.website + '" target="_blank">' + item.nickname + '</a></div>'
             +     '<div class="content">' + item.comment + '</div>'
             +     '<div class="reply">'
             +       '<div class="time">' + getLocalTime(item.time) + '</div>'
@@ -105,7 +109,7 @@
                     return false;
                 }
                 var urlReg = new RegExp(/(http|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/);
-                if (!urlReg.test(obj.website)) {
+                if (obj.website && !urlReg.test(obj.website)) {
                     $(evt.target).parent().find('.url').addClass('highlight');
                     $(evt.target).html('请输入正确完整的网站地址~');
                     return false;
