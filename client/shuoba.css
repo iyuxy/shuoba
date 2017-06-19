@@ -11,6 +11,7 @@
     background: #f4f6f7;
     outline: none;
     box-shadow: none;
+    -webkit-appearance: none;
     border: 1px solid #d9d9d9;
     box-sizing: border-box;
     font-size: 14px;
@@ -34,6 +35,7 @@
     font-size: 14px;
     outline: none;
     box-shadow: none;
+    -webkit-appearance: none;
     border: 1px solid #d9d9d9;
     background: #f4f6f7;
     border-radius: 3px;
