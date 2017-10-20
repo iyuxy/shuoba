@@ -1,4 +1,4 @@
-!function(w, d, className) {
+!function(w, d, className, serverUrl) {
     var evCheck = function () {
         if (!w.jQuery || !w.jQuery.fn.jquery >= "1.5") {
             return false;

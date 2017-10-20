@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # 启动mogodb
 cd /usr/local/mongodb/bin
 sudo ./mongod
@@ -11,4 +13,4 @@ sudo ./mongod
 
 # 启动服务
 
-# node src/index.js
+node src/index.js

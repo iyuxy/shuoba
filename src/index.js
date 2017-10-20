@@ -16,33 +16,8 @@ var path = require('path');
 
 var counter = 0x861005;
 
-// mailer.send({
-//     to: 'xx@mail.com',
-
-//     subject: 'Test shuoba Email',
-//     // plaintext body
-//     text: 'Hello World!',
-
-//     // HTML body
-//     html: '<p>hello world</p>' +
-//         '<p></p>',
-
-//     // Apple Watch specific HTML body
-//     watchHtml: '<b>Hello</b> to myself',
-// }).then(function (data) {
-//     console.log(data);
-// }, function (error) {
-//     console.log(error);
-// });
-// 
-
-// 发送测试邮件
-// mailer.sendTest({
-//     to: 'yuyouwen@baidu.com'
-// });
-// 
-// 
 app.use(express.static(path.resolve(__dirname, '../client')));
+
 
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", 'https://www.iyuxy.com');
@@ -97,13 +72,11 @@ app.post('/comment/:id', function (req, res) {
         });
     }
 
-    // if (validator.isEmail(commentContent.from)) {
     mailer.mailToOwner({
         fromNickName: commentContent.nickname,
         title: commentContent.title,
         pageUrl: commentContent.url
     });
-    // }
 
     var resContent = {
         success: true,

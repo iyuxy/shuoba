@@ -1,7 +1,7 @@
 {
     "name": "shuoba",
     "version": "0.0.1",
-    "description": "A comment system for blog",
+    "description": "A useful comment system for blog or homepage",
     "repository": {
         "type": "git",
         "url": "git+ssh://git@github.com/yuyouwen/shuoba.git"

@@ -1,6 +1,6 @@
 ## shouba
 
-A comment system for blog
+A useful comment system for blog or homepage
 
 ## usage
 
