@@ -1,3 +1,8 @@
+/**
+ * 用户配置文件
+ * @param  none
+ */
+
 var customConfig = {
     url: 'https://www.iyuxy.com',
     title: '喻小右',

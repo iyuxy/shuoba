@@ -2,7 +2,7 @@ var util  = require('../bin/util');
 
 var comment = function () {
 
-}
+};
 
 comment.prototype.getComment = function (query, callback) {
     util.selectData(query, callback);

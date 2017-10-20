@@ -1,6 +1,6 @@
 !function(w, d, className, serverUrl) {
     var evCheck = function () {
-        if (!w.jQuery || !w.jQuery.fn.jquery >= "1.5") {
+        if (!w.jQuery || !w.jQuery.fn.jquery >= '1.5') {
             return false;
         }
         return true;
@@ -30,7 +30,7 @@
         +   '</ul>'
         + '</div>';
 
-    var createCommentBox = function (className) {
+    var createCommentBox = function () {
         $(shuoba.target).css({
             padding: '10px'
         });
@@ -58,7 +58,7 @@
             }
         });
 
-    }
+    };
 
     var commentItem = function (item) {
         var tpl = '<li class="comment-item" data-uid="' + item._id + '">'
@@ -76,11 +76,11 @@
         return tpl;
     };
 
-    var getComment = function (argument) {
+    // var getComment = function (argument) {
         
-    };
+    // };
 
-    var sendComment = function (argument) {
+    var sendComment = function () {
         $(shuoba.target).delegate('.submit-button', 'click', function (evt) {
             var shuobaParams = $(evt.target).parent().find('.params');
             var obj = {};
@@ -91,16 +91,19 @@
                 var isRequire = ele.attr('data-required');
                 var name = ele.attr('name');
                 var value = ele.val();
+                /* eslint-disable */
                 if (isRequire !== undefined && value.replace(/\ /g, '') === '') {
                     ele.addClass('highlight');
                     isComment = false;
                 }
+                /* eslint-enable */
 
                 else {
                     ele.removeClass('highlight');
                 }
                 obj[name] = value;
             });
+            /* eslint-disable */
             if (isComment) {
                 var mailReg = new RegExp(/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/);
                 if (!mailReg.test(obj.from)) {
@@ -114,6 +117,7 @@
                     $(evt.target).html('请输入正确完整的网站地址~');
                     return false;
                 }
+                /* eslint-enable */
                 obj.parentId = parentId;
                 $.ajax({url: shuoba.submitUrl + '/comment/' + shuoba.pageInfo.pageId,
                     type: 'POST',
@@ -187,7 +191,7 @@
         var hour = time.getHours();
         var min = time.getMinutes();
         var sec = time.getSeconds();
-        var time = year + '年' + month + '月' + day + '日 '
+        time = year + '年' + month + '月' + day + '日 '
             + addPrefix(hour) + ':' + addPrefix(min) + ':' + addPrefix(sec);
         return time;
         // var time = new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
@@ -199,19 +203,19 @@
             return '0' + value;
         }
         return value;
-    }
-
-    var loadCss = function (path){
-        var cssTag = document.getElementById('loadCss');
-        var head = document.getElementsByTagName('head').item(0);
-        if(cssTag) head.removeChild(cssTag);
-        css = document.createElement('link');
-        css.href = path;
-        css.rel = 'stylesheet';
-        css.type = 'text/css';
-        css.id = 'loadCss';
-        head.appendChild(css);
     };
+
+    // var loadCss = function (path){
+    //     var cssTag = document.getElementById('loadCss');
+    //     var head = document.getElementsByTagName('head').item(0);
+    //     if(cssTag) head.removeChild(cssTag);
+    //     css = document.createElement('link');
+    //     css.href = path;
+    //     css.rel = 'stylesheet';
+    //     css.type = 'text/css';
+    //     css.id = 'loadCss';
+    //     head.appendChild(css);
+    // };
 
     var target = getTarget(className);
     var pageInfo = {
@@ -219,8 +223,9 @@
         title: $(target).attr('data-title'),
         url: $(target).attr('data-url')
     };
-
+    /* eslint-disable */
     var urlReg = new RegExp(/(http|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/);
+    /* eslint-enable */
     if (!urlReg.test(pageInfo.url)) {
         pageInfo.url = window.location.origin + pageInfo.url;
     }
@@ -236,7 +241,7 @@
     shuoba.target = target;
     shuoba.pageInfo = pageInfo;
     // shuoba.submitUrl = '';
-    shuoba.submitUrl = 'https://shuoba.iyuxy.com';
+    shuoba.submitUrl = serverUrl || 'https://shuoba.iyuxy.com';
 
     createCommentBox(className);
     creatCommentlist();

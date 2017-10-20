@@ -1,3 +1,8 @@
+/**
+ * 数据库操作工具库
+ */
+
+
 var baseConfig = require('./config');
 var testConfig = require('./testConfig');
 
@@ -6,13 +11,13 @@ testConfig(baseConfig);
 
 // 插入数据
 var insertData = function (data, callback, errorcallback) {
-    var insertdb = connectDB(function (db) {
+    connectDB(function (db) {
         //连接到对应数据表
         var collection = db.collection(baseConfig.collection);
         //插入数据
         collection.insert(data, function(err, result) { 
             if (err && typeof errorcallback === 'function') {
-                errorcallback(err)
+                errorcallback(err);
                 return;
             }
             else if (err) {
@@ -25,13 +30,13 @@ var insertData = function (data, callback, errorcallback) {
 
 // 查询数据
 var selectData = function (whereStr, callback, errorcallback) {
-    var selectdb = connectDB(function (db) {
+    connectDB(function (db) {
         //连接到表  
         var collection = db.collection(baseConfig.collection);
         //查询数据
         collection.find(whereStr).toArray(function(err, result) {
             if (err && typeof errorcallback === 'function') {
-                errorcallback(err)
+                errorcallback(err);
                 return;
             }
             else if (err) {
@@ -44,13 +49,13 @@ var selectData = function (whereStr, callback, errorcallback) {
 
 // 更新数据
 var updateData = function(whereStr, updateStr, callback, errorcallback) {
-    var updatedb = connectDB(function () {
+    connectDB(function () {
         //连接到表  
         var collection = db.collection(baseConfig.collection);
         //更新数据
         collection.update(whereStr, updateStr, function(err, result) {
             if (err && typeof errorcallback === 'function') {
-                errorcallback(err)
+                errorcallback(err);
                 return;
             }
             else if (err) {
@@ -63,13 +68,13 @@ var updateData = function(whereStr, updateStr, callback, errorcallback) {
 
 // 删除数据
 var delData = function(whereStr, callback, errorcallback) {
-    var del = connectDB(function (db) {
+    connectDB(function (db) {
         //连接到表  
         var collection = db.collection(baseConfig.collection);
         //删除数据
         collection.remove(whereStr, function(err, result) {
             if (err && typeof errorcallback === 'function') {
-                errorcallback(err)
+                errorcallback(err);
                 return;
             }
             else if (err) {
@@ -88,7 +93,7 @@ var connectDB = function (callback) {
         callback(db);
         db.close();
     });
-}
+};
 
 var util = {
     insertData: insertData,

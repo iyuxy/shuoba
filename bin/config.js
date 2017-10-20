@@ -1,3 +1,8 @@
+/**
+ * mongoDB 配置文件
+ * @param  none
+ */
+
 var MongoClient = require('mongodb').MongoClient;
 var customConfig = require('./customConfig');
 var u = require('underscore');
@@ -9,6 +14,5 @@ var shuobaConfig = {
 };
 
 shuobaConfig = u.extend(shuobaConfig, customConfig);
-
 
 module.exports = shuobaConfig;

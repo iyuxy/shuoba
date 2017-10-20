@@ -1,7 +1,12 @@
-var nodemailer = require("nodemailer");
+/**
+ * 邮件发送相关功能
+ * @param  none
+ */
+
+var nodemailer = require('nodemailer');
 var directTransport = require('nodemailer-direct-transport');
 var validator = require('validator');
-var Promise = require('bluebird')
+var Promise = require('bluebird');
 var config = require('./config');
 var u = require('underscore');
 
@@ -25,7 +30,7 @@ function  shuoBaMailer() {
 shuoBaMailer.prototype.getDomain = function () {
     var domain = config.url.match(new RegExp('^https?://([^/:?#]+)(?:[/:?#]|$)', 'i'));
     return domain && domain[1];
-}
+};
 
 shuoBaMailer.prototype.from = function () {
     if (this.direct === false) {
@@ -56,12 +61,12 @@ shuoBaMailer.prototype.feedBack = function (type, message) {
         success: type,
         message: message
     };
-    console.log(feedBack)
+    console.log(feedBack);
     return feedBack;
 };
 
 shuoBaMailer.prototype.send = function (message) {
-    var self = this,
+    var self = this;
     message = message || {};
     var to = message.to || false;
     
@@ -69,7 +74,7 @@ shuoBaMailer.prototype.send = function (message) {
         return self.feedBack(false, 'Email Error: No e-mail transport configured.');
     }
     if (!(message && message.subject && message.html && message.to)) {
-        var message = self.feedBack(false, 'Email Error: Incomplete message data.');
+        message = self.feedBack(false, 'Email Error: Incomplete message data.');
         return message;
     }
 
@@ -87,7 +92,7 @@ shuoBaMailer.prototype.send = function (message) {
             }
 
             if (self.transport.transportType !== 'DIRECT') {
-                 return resolve(self.feedBack(true, response));
+                return resolve(self.feedBack(true, response));
             }
 
             response.statusHandler.once('failed', function (data) {
@@ -129,14 +134,14 @@ shuoBaMailer.prototype.sendTest = function (options) {
             watchHtml: emailContent.html
         };
         return self.send(message);
-    }, function (error) {
+    }, function () {
         // console.log(error);
     });
 };
 
 shuoBaMailer.prototype.commentNotice = function (options) {
     var self = this;
-    var options = u.extend({template: 'notice'}, options);
+    options = u.extend({template: 'notice'}, options);
     return generateContent(options).then(function (emailContent) {
         var message = {
             to: options.to,
@@ -153,7 +158,7 @@ shuoBaMailer.prototype.commentNotice = function (options) {
 
 shuoBaMailer.prototype.mailToOwner = function (options) {
     var self = this;
-    var options = u.extend({template: 'commentMail', siteName: config.title}, options);
+    options = u.extend({template: 'commentMail', siteName: config.title}, options);
     return generateContent(options).then(function (emailContent) {
         var message = {
             to: config.personEmail,

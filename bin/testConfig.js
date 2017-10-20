@@ -1,7 +1,6 @@
 /**
- * [testConfig description]
- * @param  {[type]} config [description]
- * @return {[type]}        [description]
+ * 校验配置信息
+ * @param  {object} config 配置信息
  */
 
 var u = require('underscore');
