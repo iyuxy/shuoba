@@ -45,7 +45,7 @@ var shuobaConfig = {
 };
 ```
 
-#### 第三步：启动应用
+#### 第四步：启动应用
 
 ```shell
 npm start
