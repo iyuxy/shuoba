@@ -10,8 +10,8 @@ A useful comment system for blog or homepage
 
 * 跨终端的评论框&评论列表样式
 * 留言按层级展示
-* 评论和回复邮件提醒
-* 支持https
+* 评论和回复邮件提醒，让你时刻掌握博客上动态
+* 同时支持http和https
 
 ## Install
 
@@ -35,7 +35,7 @@ var shuobaConfig = {
     collection: 'shuoba'
 };
 ```
-#### 第二步：修改基础配置
+#### 第三步：修改基础配置
 打开bin/customConfig.js文件，修改站点地址和邮件相关配置
 ```javascript
 var shuobaConfig = {
@@ -45,7 +45,7 @@ var shuobaConfig = {
 };
 ```
 
-### 第三步：启动应用
+#### 第三步：启动应用
 
 ```shell
 npm start
