@@ -27,10 +27,11 @@ app.all('*', function(req, res, next) {
 });
 
 app.get('/comment/:id', function(req, res) {
-    if (req.headers.referer !== 'https://shuoba.iyuxy.com/demos.html' && req.headers.referer.indexOf('https://www.iyuxy.com') === -1){
-        res.status(403).end();
-        return;
-    }
+    // 限制请求来源
+    // if (req.headers.referer !== 'https://shuoba.iyuxy.com/demos.html' && req.headers.referer.indexOf('https://www.iyuxy.com') === -1){
+    //     res.status(403).end();
+    //     return;
+    // }
     comment.getComment({pageId: parseInt(req.params.id, 10)}, function (data) {
         res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
         res.end(JSON.stringify(u.sortBy(data, 'id')));
@@ -40,15 +41,16 @@ app.get('/comment/:id', function(req, res) {
 });
 
 app.post('/comment/:id', function (req, res) {
-    if (req.headers.referer !== 'https://shuoba.iyuxy.com/demos.html' && req.headers.referer.indexOf('https://www.iyuxy.com') === -1){
-        res.status(403).end();
-        return;
-    }
+    // 限制请求来源
+    // if (req.headers.referer !== 'https://shuoba.iyuxy.com/demos.html' && req.headers.referer.indexOf('https://www.iyuxy.com') === -1){
+    //     res.status(403).end();
+    //     return;
+    // }
     var commentContent = {
         title: req.body.title,
         url: req.body.url,
         pageId: parseInt(req.params.id, 10),
-        from: req.body.from,
+        email: req.body.email,
         nickname: req.body.nickname,
         comment: req.body.comment,
         website: req.body.website,
@@ -58,15 +60,17 @@ app.post('/comment/:id', function (req, res) {
     if (commentContent.parentId !== '0') {
         comment.getComment({pageId: commentContent.pageId, _id: commentContent.parentId}, function (data) {
             data = data[0];
-            if (validator.isEmail(data.from)) {
+            if (validator.isEmail(data.email)) {
                 mailer.commentNotice({
-                    to: data.from,
+                    to: data.email,
                     nickName: data.nickname,
                     fromNickName: commentContent.nickname,
                     title: data.title,
                     pageUrl: commentContent.url
                 });
             }
+        }, function () {
+            res.status(503).end();
         });
     }
 
