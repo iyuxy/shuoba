@@ -19,7 +19,7 @@
         +   '<textarea class="text-block params" rows="8" name="comment" placeholder="说点什么吧~" data-required></textarea>'
         +   '<div class="input-box">'
         +       '<div class="input"><input type="text" class="nickname params" name="nickname" placeholder="昵称*" data-required></div>'
-        +       '<div class="input"><input type="text" class="mail params" name="from" placeholder="电子邮件地址*" data-required></div>'
+        +       '<div class="input"><input type="text" class="mail params" name="email" placeholder="电子邮件地址*" data-required></div>'
         +       '<div class="input"><input type="text" class="website params" name="website" placeholder="网址"></div>'
         +   '</div>'
         +   '<div class="submit-button">说吧~</div>'
@@ -106,7 +106,7 @@
             /* eslint-disable */
             if (isComment) {
                 var mailReg = new RegExp(/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/);
-                if (!mailReg.test(obj.from)) {
+                if (!mailReg.test(obj.email)) {
                     $(evt.target).parent().find('.mail').addClass('highlight');
                     $(evt.target).html('请输入邮箱地址~');
                     return false;
@@ -241,7 +241,7 @@
     shuoba.target = target;
     shuoba.pageInfo = pageInfo;
     // shuoba.submitUrl = '';
-    shuoba.submitUrl = serverUrl || 'https://shuoba.iyuxy.com';
+    shuoba.submitUrl = window.location.origin;
 
     createCommentBox(className);
     creatCommentlist();
