@@ -38,10 +38,26 @@ var shuobaConfig = {
 #### 第三步：修改基础配置
 打开bin/customConfig.js文件，修改站点地址和邮件相关配置
 ```javascript
-var shuobaConfig = {
-    MongoClient: MongoClient,
-    DB_CONN_STR : 'mongodb://localhost:27017/iyuxy',
-    collection: 'shuoba'
+var customConfig = {
+    url: 'https://www.iyuxy.com',
+    title: '喻小右',
+    poweredby: '喻小右正在使用说吧',
+    personEmail: '962608051@qq.com',
+    sendEmail: true,
+    mail: {
+        from: 'shuoba@iyuxy.com'
+        // 如不提供，将使用node启动邮件程序
+        options: {
+        	host: 'smtp.exmail.qq.com',
+            port: 25,
+            auth: {
+            	// qq邮箱地址
+               	user: '96232**222@qq.com', 
+               	// qq邮箱密码
+                pass:  '****'
+            }
+        }
+    }
 };
 ```
 
