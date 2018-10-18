@@ -1,21 +1,6 @@
-# shouba 
-![travis](https://travis-ci.org/yuyouwen/shuoba.svg?branch=master)   ![coverity](https://scan.coverity.com/projects/14065/badge.svg)
+## 使用MongDB保存评论数据
 
-A useful comment system for blog or homepage
-
-## Overview
-![overview](./assets/overview.png)
-
-## Features
-
-* 跨终端的评论框&评论列表样式
-* 留言按层级展示
-* 评论和回复邮件提醒，让你时刻掌握博客上动态
-* 同时支持http和https
-
-## Quick Start
-
-> 同时支持MongDB和SQLite，可以根据需要选择合适的类型，本文档以使用SQLite为例，查看[MongDB使用](./README_MongDB.md)。
+**在安装前请先在你的server上安装好mongoDB，并启动**
 
 #### 第一步：下载代码
 ```shell
@@ -27,6 +12,18 @@ A useful comment system for blog or homepage
 ```shell
 cd shuoba && npm install
 ```
+
+#### 第三步：添加mongoDB配置
+
+打开bin/config.js文件，修改mongoDB地址和collection地址
+```javascript
+var shuobaConfig = {
+    MongoClient: MongoClient,
+    DB_CONN_STR : 'mongodb://localhost:27017/iyuxy',
+    collection: 'shuoba'
+};
+```
+
 #### 第三步：修改基础配置
 
 打开`bin/customConfig.js`文件，修改站点地址(url)和邮件(personEmail)相关配置
