@@ -9,8 +9,8 @@ var u = require('underscore');
 
 var shuobaConfig = {
     MongoClient: MongoClient,
-    DB_CONN_STR : 'mongodb://localhost:27017/iyuxy',
-    collection: 'shuoba'
+    DB_CONN_STR : 'mongodb://localhost:port/db',
+    collection: 'collection'
 };
 
 shuobaConfig = u.extend(shuobaConfig, customConfig);

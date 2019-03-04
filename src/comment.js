@@ -30,6 +30,7 @@ if (USE_SQLITE) {
 	        comment: 'TEXT',
 	        website: 'TEXT',
 	        parentId: 'TEXT',
+	        'avatar_url': 'TEXT',
 	        time: 'INTEGER'
 	    }
 	});
@@ -46,6 +47,7 @@ comment.prototype.getComment = function (query, callback, errorCallback) {
 };
 
 comment.prototype.insertComment = function (data, callback, errorCallback) {
+	console.log(data);
     DB_UTIL.insertData(data, callback, errorCallback);
 };
 

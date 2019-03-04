@@ -13,6 +13,7 @@ var express = require('express');
 var path = require('path');
 
 var counter = 0x861005;
+require('./auth');
 
 app.use(express.static(path.resolve(__dirname, '../client')));
 
@@ -34,7 +35,7 @@ app.get('/comment/:id', function(req, res) {
     // }
     comment.getComment({pageId: parseInt(req.params.id, 10)}, function (data) {
         res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
-        res.end(JSON.stringify(u.sortBy(data, 'id')));
+        res.end(JSON.stringify(u.sortBy(data, 'time')));
     }, function () {
         res.status(503).end();
     });
@@ -54,12 +55,16 @@ app.post('/comment/:id', function (req, res) {
         nickname: req.body.nickname,
         comment: req.body.comment,
         website: req.body.website,
+        avatar_url: req.body.avatar_url,
         parentId: req.body.parentId || '0'
     };
     commentContent._id = commentContent.pageId + '' + new Date().getTime() + counter ++;
     if (commentContent.parentId !== '0') {
         comment.getComment({pageId: commentContent.pageId, _id: commentContent.parentId}, function (data) {
             data = data[0];
+            console.log(1)
+            console.log(data);
+            console.log(2)
             if (validator.isEmail(data.email)) {
                 mailer.commentNotice({
                     to: data.email,
